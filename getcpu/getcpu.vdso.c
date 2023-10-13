@@ -21,4 +21,4 @@
 
 #define _GNU_SOURCE
 #include <dlfcn.h>
-#include "getcpu.base.c"
+#include <harness.c>

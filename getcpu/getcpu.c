@@ -5,4 +5,4 @@
 #define END() 0
 #define NUM_ITER (1<<30)
 
-#include "getcpu.base.c"
+#include <harness.c>
