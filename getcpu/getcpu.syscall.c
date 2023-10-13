@@ -1,16 +1,34 @@
+// measure latency for `getcpu` as an explicit syscall
 #define _GNU_SOURCE
 #include <stdlib.h>
-#include <stdio.h>
-#include <sys/auxv.h> // vdso
-#include <dlfcn.h> // dlopen
 #include <time.h>
 #include <sched.h>
 #include <sys/syscall.h>
 #include <unistd.h>
 
-int NUM_ITER = 1<<24;
+#include <stdio.h>
+#include <assert.h>
+
+#define NUM_ITER (1<<25)
 
 int main(){
+    struct sched_param sched;
+    if((sched.sched_priority = sched_get_priority_max(SCHED_FIFO)) == -1){
+        perror("sched_get_priority_max");
+        return EXIT_FAILURE;
+    }
+    if(sched_setscheduler(0, SCHED_FIFO, &sched) == -1){
+        perror("sched_setscheduler");
+        return EXIT_FAILURE;
+    }
+    cpu_set_t cpu_mask;
+    CPU_ZERO(&cpu_mask);
+    CPU_SET(0, &cpu_mask);
+    assert(CPU_COUNT(&cpu_mask) == 1);
+    if(sched_setaffinity(0, sizeof(cpu_mask), &cpu_mask)){
+        perror("sched_setaffinity");
+        return EXIT_FAILURE;
+    }
     struct timespec start;
     struct timespec end;
     if(clock_gettime(CLOCK_MONOTONIC, &start)){

@@ -1,21 +1,40 @@
+// measure latency for `getcpu` as an explicit syscall
 #define _GNU_SOURCE
 #include <stdlib.h>
-#include <stdio.h>
-#include <sys/auxv.h> // vdso
-#include <dlfcn.h> // dlopen
 #include <time.h>
 #include <sched.h>
+#include <dlfcn.h>
 
-int NUM_ITER = 1<<30;
+#include <stdio.h>
+#include <assert.h>
+
+#define NUM_ITER (1<<30)
 
 int main(){
+    struct sched_param sched;
+    if((sched.sched_priority = sched_get_priority_max(SCHED_FIFO)) == -1){
+        perror("sched_get_priority_max");
+        return EXIT_FAILURE;
+    }
+    if(sched_setscheduler(0, SCHED_FIFO, &sched) == -1){
+        perror("sched_setscheduler");
+        return EXIT_FAILURE;
+    }
+    cpu_set_t cpu_mask;
+    CPU_ZERO(&cpu_mask);
+    CPU_SET(0, &cpu_mask);
+    assert(CPU_COUNT(&cpu_mask) == 1);
+    if(sched_setaffinity(0, sizeof(cpu_mask), &cpu_mask)){
+        perror("sched_setaffinity");
+        return EXIT_FAILURE;
+    }
     void *vdso = dlopen("linux-vdso.so.1", RTLD_NOW);
     if(!vdso){
         dlerror();
         return EXIT_FAILURE;
     }
-    int (*getcpu_)(unsigned int *, unsigned int *)= dlsym(vdso, "__vdso_getcpu");
-    if(!getcpu){
+    int (*getcpu_)(unsigned int *, unsigned int *) = dlsym(vdso, "__vdso_getcpu");
+    if(!getcpu_){
         dlerror();
         return EXIT_FAILURE;
     }
@@ -38,6 +57,6 @@ int main(){
     }
     double t1 = (end.tv_sec - start.tv_sec) + ((end.tv_nsec - start.tv_nsec) / 1e9);
     double t2 = (1e9 * (end.tv_sec - start.tv_sec)) + (end.tv_nsec - start.tv_nsec);
-    printf("[getcpu_] total time: %f seconds \naverage time: %f nanoseconds\n", t1, t2 / NUM_ITER);
+    printf("[getcpu] total time: %f seconds \naverage time: %f nanoseconds\n", t1, t2 / NUM_ITER);
     return EXIT_SUCCESS;
 }
