@@ -1,0 +1,4 @@
+[sched_yield A] total time: 158.542673 seconds 
+average time: 2362.469931 nanoseconds
+[sched_yield B] total time: 158.544412 seconds 
+average time: 2362.495847 nanoseconds
