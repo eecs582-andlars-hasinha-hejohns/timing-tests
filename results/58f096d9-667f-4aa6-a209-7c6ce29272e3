@@ -1,0 +1,19 @@
+CPU(s):                             4
+Model name:                         Intel(R) Xeon(R) CPU E3-1225 v6 @ 3.30GHz
+BIOS Model name:                    Intel(R) Xeon(R) CPU E3-1225 v6 @ 3.30GHz To Be Filled By O.E.M. CPU @ 3.3GHz
+NUMA node0 CPU(s):                  0-3
+Vulnerable
+[getcpu-implicit-vdso] total time: 11.566703 seconds 
+average time: 10.772332 nanoseconds
+[getcpu-syscall] total time: 14.391044 seconds 
+average time: 428.886540 nanoseconds
+[getcpu-explicit-vdso] total time: 9.907492 seconds 
+average time: 9.227071 nanoseconds
+[getpid-explicit-syscall] total time: 15.055649 seconds 
+average time: 448.693292 nanoseconds
+[getpid-implicit-syscall] total time: 14.924757 seconds 
+average time: 444.792434 nanoseconds
+[sched_yield A] total time: 157.316306 seconds 
+average time: 2344.195638 nanoseconds
+[sched_yield B] total time: 157.316622 seconds 
+average time: 2344.200345 nanoseconds
