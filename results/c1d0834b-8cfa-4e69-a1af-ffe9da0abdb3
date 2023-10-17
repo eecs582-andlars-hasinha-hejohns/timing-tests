@@ -1,0 +1,19 @@
+CPU(s):                             4
+Model name:                         Intel(R) Pentium(R) CPU G4600 @ 3.60GHz
+BIOS Model name:                    Intel(R) Pentium(R) CPU G4600 @ 3.60GHz  CPU @ 3.6GHz
+NUMA node0 CPU(s):                  0-3
+Mitigation: PTI
+[getcpu-implicit-vdso] total time: 11.690231 seconds 
+average time: 10.887376 nanoseconds
+[getcpu-syscall] total time: 18.986704 seconds 
+average time: 565.847867 nanoseconds
+[getcpu-explicit-vdso] total time: 9.836490 seconds 
+average time: 9.160945 nanoseconds
+[getpid-explicit-syscall] total time: 19.400407 seconds 
+average time: 578.177187 nanoseconds
+[getpid-implicit-syscall] total time: 19.386606 seconds 
+average time: 577.765891 nanoseconds
+[sched_yield A] total time: 182.149804 seconds 
+average time: 2714.243589 nanoseconds
+[sched_yield B] total time: 182.117394 seconds 
+average time: 2713.760644 nanoseconds
