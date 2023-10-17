@@ -17002,5 +17002,4 @@ unshift @INC, bless \%fatpacked, $class;
 use v5.32;
 use IPC::Run qw(run);
 
-my $log = 'ctx-switch.log';
-run ["./A"], '>>', $log, '&', ["./B"], '>>', $log;
+run ["./A"], '&', ["./B"];
