@@ -1,4 +1,4 @@
-#define TEST "getpid-implicit-syscall"
+#define TEST "getpid-explicit-syscall"
 #define BEGIN() 0
 #define HOT() \
     syscall(__NR_getpid);
