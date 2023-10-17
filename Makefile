@@ -14,7 +14,7 @@ clean:
 test: all
 	$(foreach test,$(TESTS),$(MAKE) -C $(test)/ test $(newline))
 test-silent:
-	(cat /proc/cpuinfo | grep 'model name'; \
+	(lscpu | grep -P '(Model name|CPU)\S*:'; \
 	cat /sys/devices/system/cpu/vulnerabilities/meltdown; \
 	$(MAKE) -s test) | tee results/$(file < /proc/sys/kernel/random/uuid)
 .PHONY: all clean test test-silent
