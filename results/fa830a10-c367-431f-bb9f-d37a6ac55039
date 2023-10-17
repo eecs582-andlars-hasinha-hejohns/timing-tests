@@ -1,0 +1,21 @@
+CPU(s):                             48
+Model name:                         Intel(R) Xeon(R) Gold 6142 CPU @ 2.60GHz
+BIOS Model name:                    pc-i440fx-8.0  CPU @ 2.0GHz
+Hypervisor vendor:                  KVM
+Virtualization type:                full
+NUMA node0 CPU(s):                  0-47
+Mitigation: PTI
+[getcpu-explicit-vdso] total time: 9.770911 seconds 
+average time: 9.099870 nanoseconds
+[getcpu-implicit-vdso] total time: 12.067520 seconds 
+average time: 11.238753 nanoseconds
+[getcpu-syscall] total time: 22.007797 seconds 
+average time: 655.883474 nanoseconds
+[getpid-implicit-syscall] total time: 22.422944 seconds 
+average time: 668.255802 nanoseconds
+[getpid-explicit-syscall] total time: 22.428540 seconds 
+average time: 668.422567 nanoseconds
+[sched_yield A] total time: 206.398041 seconds 
+average time: 3075.570479 nanoseconds
+[sched_yield B] total time: 206.344973 seconds 
+average time: 3074.779702 nanoseconds
