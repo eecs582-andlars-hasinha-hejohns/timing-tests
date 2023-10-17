@@ -1,11 +1,16 @@
 CFLAGS = -O3 -I$(shell pwd)
 export
+TESTS := $(file < TESTS)
+
+define newline
+
+
+endef
+
 all:
-	$(MAKE) -C getcpu/
-	$(MAKE) -C getpid/
-	$(MAKE) -C ctx-switch
+	$(foreach test,$(TESTS),$(MAKE) -C $(test)/ $(newline))
 clean:
-	$(MAKE) -C getcpu clean
-	$(MAKE) -C getpid clean
-	$(MAKE) -C ctx-switch clean
-.PHONY: all clean
+	$(foreach test,$(TESTS),$(MAKE) -C $(test)/ clean $(newline))
+test: all
+	$(foreach test,$(TESTS),$(MAKE) -C $(test)/ test $(newline))
+.PHONY: all clean test

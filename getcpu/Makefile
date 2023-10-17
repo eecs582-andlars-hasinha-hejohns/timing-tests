@@ -6,5 +6,7 @@ getcpu-explicit-vdso: getcpu.vdso.c
 getcpu-syscall: getcpu.syscall.c
 	$(CC) $(CFLAGS) -o $@ $^
 clean:
-	-rm getcpu-*
-.PHONY: all clean
+	-find . -type f -executable -delete
+test: all
+	find . -type f -executable -exec {} \;
+.PHONY: all clean test
